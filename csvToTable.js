@@ -35,7 +35,7 @@ fetch("1.21.8.csv")
 
       const row = document.createElement("tr");
       row.id = item.id;
-      const imgTag = `<img src="textures/block/${item.id}.png" alt="${item.name}" />`;
+      const imgTag = `<img src="image/${item.id}.png" alt="${item.name}" />`;
       row.innerHTML = `
         <td>${imgTag}</td>
         <td>${item.name}</td>
