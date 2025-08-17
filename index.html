@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" href="textures/block/grass_block_side.png" />
+    <meta property="og:image" content="icon.png" />
+    <title>Minecraftの無限資源(再生可能資源)</title>
+    <meta property="og:title" content="Minecraftの無限資源" />
+    <meta name="keywords" content="Minecraft, 一覧表, 無限資源, 再生可能資源" />
+    <meta
+      property="description"
+      content="Minecraftで何を無限化できるのか。直感的に理解できる一覧表のサイトです。"
+    />
+    <meta
+      property="og:description"
+      content="Minecraftで何を無限化できるのか。直感的に理解できる一覧表のサイトです。"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Minecraftの無限資源(再生可能資源)</h1>
+    </header>
+    <main>
+      <p>Ver.1.21.8</p>
+      <p>
+        サバイバルモードで無限化できないものは<span class="finite">赤背景</span>
+      </p>
+      <div class="search">
+        <input type="text" id="searchInput" placeholder="検索" />
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col" width="60px"></th>
+            <th scope="col">日本語名</th>
+            <th scope="col">ID</th>
+            <th scope="col">取得方法</th>
+            <th scope="col" width="60px">詳細</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </main>
+    <script type="text/javascript" src="search.js"></script>
+    <script type="text/javascript" src="csvToTable.js"></script>
+  </body>
+</html>
