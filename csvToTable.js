@@ -17,14 +17,17 @@ fetch("1.21.8.csv")
       let howText = item.how;
 
       // 3. 他の日本語名が含まれていたらリンク化
-      items.forEach((other) => {
+      const sortedItems = [...items].sort(
+        (a, b) => b.name.length - a.name.length
+      );
+
+      sortedItems.forEach((other) => {
         if (
           other.name &&
           other.id &&
           other.name !== item.name &&
           howText.includes(other.name)
         ) {
-          // 正規表現で複数回・部分一致も対応
           const reg = new RegExp(other.name, "g");
           howText = howText.replace(
             reg,
@@ -39,7 +42,7 @@ fetch("1.21.8.csv")
       row.innerHTML = `
         <td>${imgTag}</td>
         <td>${item.name}</td>
-        <td>${item.id}</td>
+        <td><code>${item.id}</code></td>
         <td>${howText}</td>
         <td>${item.status}</td>
       `;
