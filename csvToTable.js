@@ -7,8 +7,9 @@ fetch("1.21.8.csv")
     dataLines.forEach((line) => {
       const [name, id, how, status] = line.split(",");
       const row = document.createElement("tr");
+      const image = `<img src="textures/block/${id}.png" alt="${name}" />`;
       row.innerHTML = `
-              <td></td>
+              <td>${image}</td>
               <td>${name}</td>
               <td>${id}</td>
               <td>${how}</td>
