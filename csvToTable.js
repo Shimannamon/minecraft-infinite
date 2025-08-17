@@ -28,7 +28,7 @@ fetch("1.21.8.csv")
           const reg = new RegExp(other.name, "g");
           howText = howText.replace(
             reg,
-            `<a href="#${other.id}">${other.name}</a>`
+            `<a href="#${other.id}"><img src="image/${other.id}.png" alt="${other.name}" />${other.name}</a>`
           );
         }
       });
