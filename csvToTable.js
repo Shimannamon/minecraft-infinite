@@ -16,22 +16,22 @@ fetch("1.21.8.csv")
     items.forEach((item) => {
       let howText = item.how;
 
-      // すでにリンク化された部分を再度置換しないための工夫
-      const sortedItems = [...items].sort(
-        (a, b) => b.name.length - a.name.length
-      );
+      // 他のアイテム名を長い順に並べる
+      const sortedItems = [...items]
+        .filter((other) => other.name && other.id && other.name !== item.name)
+        .sort((a, b) => b.name.length - a.name.length);
 
-      // 1回だけreplace、replaceのコールバックでリンク化
-      sortedItems.forEach((other) => {
-        if (other.name && other.id && other.name !== item.name) {
-          // 既にリンク化された部分はスキップ
-          const reg = new RegExp(`(${other.name})(?![^<]*?>)`, "g");
-          howText = howText.replace(
-            reg,
-            `<a href="#${other.id}"><img src="image/${other.id}.png" alt="${other.name}" />$1</a>`
-          );
-        }
-      });
+      // すべてのアイテム名をまとめて正規表現に
+      const names = sortedItems.map((other) =>
+        other.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+      );
+      if (names.length > 0) {
+        const reg = new RegExp(names.join("|"), "g");
+        howText = howText.replace(reg, (matched) => {
+          const other = sortedItems.find((o) => o.name === matched);
+          return `<a href="#${other.id}"><img src="image/${other.id}.png" alt="${other.name}" />${other.name}</a>`;
+        });
+      }
 
       const row = document.createElement("tr");
       row.id = item.id;
