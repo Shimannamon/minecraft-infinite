@@ -16,22 +16,19 @@ fetch("1.21.8.csv")
     items.forEach((item) => {
       let howText = item.how;
 
-      // 3. 他の日本語名が含まれていたらリンク化
+      // すでにリンク化された部分を再度置換しないための工夫
       const sortedItems = [...items].sort(
         (a, b) => b.name.length - a.name.length
       );
 
+      // 1回だけreplace、replaceのコールバックでリンク化
       sortedItems.forEach((other) => {
-        if (
-          other.name &&
-          other.id &&
-          other.name !== item.name &&
-          howText.includes(other.name)
-        ) {
-          const reg = new RegExp(other.name, "g");
+        if (other.name && other.id && other.name !== item.name) {
+          // 既にリンク化された部分はスキップ
+          const reg = new RegExp(`(${other.name})(?![^<]*?>)`, "g");
           howText = howText.replace(
             reg,
-            `<a href="#${other.id}"><img src="image/${other.id}.png" alt="${other.name}" />${other.name}</a>`
+            `<a href="#${other.id}"><img src="image/${other.id}.png" alt="${other.name}" />$1</a>`
           );
         }
       });
@@ -40,12 +37,12 @@ fetch("1.21.8.csv")
       row.id = item.id;
       const imgTag = `<img src="image/${item.id}.png" alt="${item.name}" />`;
       row.innerHTML = `
-        <td>${imgTag}</td>
-        <td>${item.name}</td>
-        <td><code>${item.id}</code></td>
-        <td>${howText}</td>
-        <td>${item.status}</td>
-      `;
+    <td>${imgTag}</td>
+    <td>${item.name}</td>
+    <td>${item.id}</td>
+    <td>${howText}</td>
+    <td>${item.status}</td>
+  `;
       tableBody.appendChild(row);
     });
   })
